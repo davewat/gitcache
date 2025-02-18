@@ -13,8 +13,8 @@ venv.bak/
 config.toml
 
 # data
-./data/
-./src/data/
+data/
+**/src/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,17 @@
+[Unit]
+Description=Git Cache - Keep local git repos in sync with a remote to save bandwidth
+After=network.target
+
+[Service]
+WorkingDirectory=/var/lib/gitcache
+ExecStart=/var/lib/gitcache/.venv/bin/python /var/lib/gitcache/main.py
+Restart=always
+RestartSec=5
+Environment="PYTHONUNBUFFERED=1"
+#User=your-username
+#Group=your-username
+StandardOutput=append:/var/log/gitcache.log
+StandardError=append:/var/log/gitcache.log
+
+[Install]
+WantedBy=multi-user.target

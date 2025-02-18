@@ -1,0 +1,6 @@
+#pip install gitpython
+gitpython
+pydantic
+aiohttp
+datetime
+toml
