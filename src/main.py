@@ -15,8 +15,12 @@ class git_cache:
     def load_config(self):
         # load self.config
         self.log("Loading config...")
+        config_location = self.get_config_location()
+        if not config_location:
+            self.log("Config file not found. Exiting.")
+            exit()
         try:
-            with open('config.toml', 'r') as f:
+            with open(config_location, 'r') as f:
                 config_data = toml.load(f)
             self.log(f"Config Data: {config_data}")
             outer_adapter = TypeAdapter(Config)
@@ -84,6 +88,15 @@ class git_cache:
         #await asyncio.sleep(self.config.sync_interval)
         self.loop.create_task(self.process_loop())
     
+    def get_config_location(self):
+        if os.path.exists('/etc/gitcache/config.toml'):
+            return '/etc/gitcache/config.toml'
+        elif os.path.exists('./config.toml'):
+            # Create the folder
+            return './config.toml'
+        else:
+            return None            
+            
     def generate_folder(self,folder_path):
         # Check if the folder exists
         if not os.path.exists(folder_path):

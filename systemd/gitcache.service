@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/var/lib/gitcache
-ExecStart=/var/lib/gitcache/venv/bin/python /var/lib/gitcache/main.py
+ExecStart=/var/lib/gitcache/venv/bin/python /var/lib/gitcache/src/main.py
 Restart=always
 RestartSec=5
 Environment="PYTHONUNBUFFERED=1"
