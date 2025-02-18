@@ -30,4 +30,9 @@ rm -rf "$CLONE_DIR"
 # copy config example
 rsync -av --delete "$DEST_DIR/src/_config.toml" "$CONFIG_DIR/config.toml"
 
+cd $DEST_DIR
+python3 -m venv "$DEST_DIR/venv"
+source "$DEST_DIR/venv/bin/activate"
+python3 -m pip install -r src/requirements.txt
+
 echo "Done!"
