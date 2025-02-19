@@ -6,13 +6,15 @@ status_server_port = 8000 # Port to serve the status server on
 use_bootstrap = true # use bootstrap based template for status server
 
 [[repos]]
-cache_path = "./data/gitcache"  # Path to your local cached repo
-remote_url = "https://gitea.server.local/git/mygroup/repo1.git"  # Replace with actual remote URL
+cache_path = "/var/lib/gitcache/data/gitcache_a"  # Path to your local cached repo
+remote_url = "https://github.com/davewat/gitcache.git"  # Replace with actual remote URL
 branch = "main"  # Change to the branch you want to track
-desc = "gitcache" # OPTIONAL - Add a description which is displeyed in the logs
+desc = "gitcache_a" # OPTIONAL - Add a description which is displayed in the logs
 # force_clone = true # OPTIONAL - Force clone the repo on start, even if it exists
 
 #[[repos]]
-#cache_path = "./data/repo2"  # Path to your local cached repo
-#remote_url = "https://github.com.local/git/mygithubacct/repo2.git"  # Replace with actual remote URL
-#branch = "dev"  # Change to the branch you want to track
+# cache_path = "/var/lib/gitcache/data/gitcache_b"  # Path to your local cached repo
+# remote_url = "https://github.com/davewat/gitcache.git"  # Replace with actual remote URL
+# branch = "main"  # Change to the branch you want to track
+# desc = "gitcache_b" # OPTIONAL - Add a description which is displeyed in the logs
+

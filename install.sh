@@ -5,6 +5,7 @@ REMOTE_REPO="https://github.com/davewat/gitcache.git"
 CLONE_DIR="./.tmp_git_repo_clone"  # Temporary clone location
 DEST_DIR="/var/lib/gitcache"
 CONFIG_DIR="/etc/gitcache"
+STATUS_WEB_PORT=8000
 
 ### verify OS and update as needed
 #!/bin/bash
@@ -78,9 +79,46 @@ install_pip_virtualenv() {
     fi
 }
 
+# Function to prompt for OS selection
+prompt_firewall() {
+    echo "Select to have iptables open port $STATUS_WEB_PORT for status update page?"
+    echo "Changes are as follows:"
+    echo "iptables -I INPUT -p tcp -m tcp --dport $STATUS_WEB_PORT -j ACCEPT"
+    echo "iptables -I OUTPUT -p tcp --sport $STATUS_WEB_PORT -m state --state ESTABLISHED -j ACCEPT"
+    echo ""
+    echo "1) No - do not change iptables"
+    echo "2) Update IP Tables"
+    read -p "Enter the number (1/2): " fw_choice
+
+    case $fw_choice in
+        1) firewall_config="none" ;;
+        2) firewall_config="update" ;;
+        *) echo "Invalid choice. Exiting."; exit 1 ;;
+    esac
+}
+
+update_iptables() {
+    # enable ip port
+    # update detect_os function notes if this is changed
+    iptables -I INPUT -p tcp -m tcp --dport "$STATUS_WEB_PORT" -j ACCEPT
+    iptables -I OUTPUT -p tcp --sport "$STATUS_WEB_PORT" -m state --state ESTABLISHED -j ACCEPT
+    echo "Firewall updated"
+}
+
+firewall_config() {
+    case $firewall_config in
+        update) update_iptables ;;
+        none) echo "No Firewall Changes" ;;
+    esac
+}
+
 # Detect OS
 detect_os
 echo "✅ Detected OS: $OS"
+
+# Prompt for firewall configuration
+prompt_firewall
+firewall_config
 
 # Install or update Git, Python, pip, and Virtualenv
 echo "🔍 Checking for Git, Python, rsync, pip, and virtualenv installation..."
@@ -124,9 +162,6 @@ rsync -av --delete "$CLONE_DIR/" "$DEST_DIR/"
 # cleanup
 rm -rf "$CLONE_DIR"
 
-# enable ip port
-iptables -I INPUT -p tcp -m tcp --dport 8000 -j ACCEPT
-iptables -I OUTPUT -p tcp --sport 8000 -m state --state ESTABLISHED -j ACCEPT
 
 # copy config example
 rsync -av --delete "$DEST_DIR/src/_config.toml" "$CONFIG_DIR/config.toml"
