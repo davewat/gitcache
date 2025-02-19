@@ -1,7 +1,5 @@
 # gitcache
 Save bandwidth on duplicate pull requests with a gitcache
-# git cache
-Create a git cache to SAVE BANDWIDTH
 
 ### Purpose
 With many local hosts that are frequently grabbing the latest update of a remote git repository, significant bandwith can be saved by having a single, local git repo that is constantly updated with the latest version of the remote repo and the other local hosts usig the local cache for pulls.
@@ -16,11 +14,21 @@ Updaes (push) still go to the primary repo, but PR's are performed against the l
 - option to share current status page accessible over HTTP
 
 ### Requirements
-- you must alrady have key based authentication enabled for the user that the script/ service will run under (you dont want your script to be blocked by a login request!)
-- Python virtual environment (tested on 3.12+) with installed requirements
+You must already have key based authentication enabled for the user that the script/ service will run under (you dont want your script to be blocked by a login request!)
+
+The installer script will run (tested on Ubuntu) to update your environment as needed, including:
+- prompting to open a port in IP Tables for access to the Status Page
+- Installing/ updating: Python virtual environment (tested on 3.10+) with installed requirements
+
+git, python3, python3-venv, rsync
 
 ### Getting Started
-Run the installation script:
+Download the installation script to customize:
+```
+curl -fsSL https://raw.githubusercontent.com/davewat/gitcache/refs/heads/main/install.sh
+```
+
+or run fully automated (tested on Ubuntu):
 ```
 # clone the repo:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/davewat/gitcache/refs/heads/main/install.sh)"
