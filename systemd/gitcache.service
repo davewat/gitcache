@@ -3,7 +3,7 @@ Description=Git Cache - Keep local git repos in sync with a remote to save bandw
 After=network.target
 
 [Service]
-WorkingDirectory=/var/lib/gitcache
+WorkingDirectory=/var/lib/gitcache/src
 ExecStart=/var/lib/gitcache/venv/bin/python /var/lib/gitcache/src/main.py
 Restart=always
 RestartSec=5

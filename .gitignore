@@ -23,3 +23,6 @@ __pycache__/
 
 # C extensions
 *.so
+
+# local tests
+local/

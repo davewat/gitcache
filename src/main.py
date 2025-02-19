@@ -53,9 +53,9 @@ class git_cache:
     def check_server_options(self):
         if self.config.enable_status_server:
             if self.config.use_bootstrap:
-                template_file = './status_template_bootstrap.html'
+                template_file = 'status_template_bootstrap.html'
             else:
-                template_file = './status_template.html'
+                template_file = 'status_template.html'
             with open(template_file, 'r') as file:
                 self.html_template = file.read()
             
