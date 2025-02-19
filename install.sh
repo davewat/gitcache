@@ -42,7 +42,7 @@ install_or_update() {
     if check_command "$PACKAGE"; then
         echo "✔ $PACKAGE is already installed. Updating..."
         case $OS in
-            debian) sudo apt update && sudo apt upgrade -y --only-upgrade "$PACKAGE" ;;
+            debian) sudo apt update && sudo apt install -y --only-upgrade "$PACKAGE" ;;
             rhel) sudo yum update -y "$PACKAGE" ;;
             macos) brew upgrade "$PACKAGE" ;;
         esac
@@ -167,7 +167,7 @@ rm -rf "$CLONE_DIR"
 rsync -av --delete "$DEST_DIR/src/_config.toml" "$CONFIG_DIR/config.toml"
 
 ## python venv tools need to be available
-sudo apt-get -y install python3-venv
+# sudo apt-get -y install python3-venv
 
 cd $DEST_DIR
 python3 -m venv "$DEST_DIR/venv"
