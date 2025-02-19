@@ -124,6 +124,7 @@ firewall_config
 echo "🔍 Checking for Git, Python, rsync, pip, and virtualenv installation..."
 install_or_update git
 install_or_update python3
+install_or_update python3-venv
 install_or_update rsync
 install_pip_virtualenv
 
